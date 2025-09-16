@@ -4,7 +4,6 @@ phases:
   build:
     commands:
       - echo "Hello"
-      - mvn clean package
       - docker build -t s3uploader .
       - docker tag s3uploader:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/s3uploader:latest
   post_build:
