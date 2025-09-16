@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn clean package
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - java -jar target/s3-upload-1.0-SNAPSHOT.jar
+
+artifacts:
+  files:
+    - target/s3-upload-1.0-SNAPSHOT.jar
