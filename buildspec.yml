@@ -1,19 +1,24 @@
 version: 0.2
+run-as: root
+env:
+ shell: "bash"
+ variables:
+  CONTAINERD_ADDRESS: "/run/docker/containerd/containerd.sock"
 
 phases:
+  pre_build:
+    commands:
+       - export AWS_CREDENTIALS=$(wget -qO- http://169.254.170.2/$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI)
+       - export AWS_ACCESS_KEY_ID=$(echo $AWS_CREDENTIALS | jq -r .AccessKeyId)
+       - export AWS_SECRET_ACCESS_KEY=$(echo $AWS_CREDENTIALS | jq -r .SecretAccessKey)
+       - export AWS_SESSION_TOKEN=$(echo $AWS_CREDENTIALS | jq -r .Token)
   build:
     commands:
-      - echo "Hello"
-      - docker ps
-      - docker build -t s3uploader .
-      - docker tag s3uploader:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/s3uploader:latest
-  post_build:
-    commands:
-      - echo "Let's see"
-      # - java -jar target/s3-upload-1.0-SNAPSHOT.jar
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/s3uploader:latest
-      - docker run s3uploader
-
+       - echo "Hello Test"
+       - node --version
+       - npm --version
+       - docker info
+       - docker build -t test:latest --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --build-arg AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN .
 artifacts:
   files:
-    - target/s3-upload-1.0-SNAPSHOT.jar
+     - '**/*'
