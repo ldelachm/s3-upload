@@ -5,10 +5,14 @@ phases:
     commands:
       - echo "Hello"
       - mvn clean package
+      - docker build -t s3uploader .
+      - docker tag s3uploader:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/s3uploader:latest
   post_build:
     commands:
       - echo "Let's see"
-      - java -jar target/s3-upload-1.0-SNAPSHOT.jar
+      # - java -jar target/s3-upload-1.0-SNAPSHOT.jar
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/s3uploader:latest
+      - docker run s3uploader
 
 artifacts:
   files:
