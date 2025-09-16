@@ -1,18 +1,7 @@
-# Use an official Amazon Corretto (AWS Java) base image
-FROM amazoncorretto:11
-
-# Set the working directory
-WORKDIR /app
-
-# Copy the Maven files first for better caching
-COPY pom.xml .
-COPY src ./src
-
-# Install Maven
-RUN yum install -y maven
-
-# Build the application
-RUN mvn clean package
-
-# Run the Java application
-CMD ["java", "-jar", "target/s3-upload-1.0-SNAPSHOT.jar"]
+FROM amazon/aws-cli:2.28.22
+COPY . .
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ARG AWS_SESSION_TOKEN
+RUN aws sts get-caller-identity
+RUN aws s3 cp requirements.txt s3://upload-to-s3-with-codebuild-test
