@@ -3,11 +3,11 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo Build started on `date`
+      - echo "Hello"
       - mvn clean package
   post_build:
     commands:
-      - echo Build completed on `date`
+      - echo "Let's see"
       - java -jar target/s3-upload-1.0-SNAPSHOT.jar
 
 artifacts:
