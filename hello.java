@@ -35,5 +35,3 @@ public class S3Upload {
         }
     }
 }
-
-S3Upload.main(new String[]{});
