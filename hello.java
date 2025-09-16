@@ -19,7 +19,7 @@ public class S3Upload {
                                                     .build();
 
             // Specify your bucket name
-            String bucketName = "your-bucket-name";
+            String bucketName = "upload-to-s3-with-codebuild-test";
             
             // Upload the file
             PutObjectRequest request = new PutObjectRequest(bucketName, "hello.txt", file);
@@ -35,3 +35,5 @@ public class S3Upload {
         }
     }
 }
+
+S3Upload.main(new String[]{});
