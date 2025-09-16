@@ -1,5 +1,5 @@
 # Use an official Amazon Corretto (AWS Java) base image
-FROM amazoncorretto:11
+FROM amazonlinux-x86_64-standard:5.0
 
 # Set the working directory
 WORKDIR /app
