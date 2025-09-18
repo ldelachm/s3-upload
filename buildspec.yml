@@ -14,6 +14,7 @@ phases:
        - export AWS_SESSION_TOKEN=$(echo $AWS_CREDENTIALS | jq -r .Token)
   build:
     commands:
+       - aws sts get-caller-identity
        - echo "Hello Test"
        - node --version
        - npm --version
