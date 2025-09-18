@@ -20,7 +20,7 @@ phases:
        - npm --version
        - docker info
        # - docker build -t test:latest --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --build-arg AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN .
-       - docker run --rm amazon/aws-cli sts get-caller-identity
+       - docker run --rm -v /var/run/docker.sock:/var/run/docker.sock amazon/aws-cli sts get-caller-identity
 artifacts:
   files:
      - '**/*'
