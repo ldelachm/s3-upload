@@ -18,8 +18,8 @@ phases:
        - echo "Hello Test"
        - node --version
        - npm --version
-       # - docker info
-       # - sleep 10m
+       - docker info
+       - sleep 10m
        - docker build -t test:latest --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --build-arg AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN .
        # - docker build -t test:latest --build-arg AWS_ROLE_ARN=arn:aws:iam::461115678255:role/codebuild-s3-upload-y-service-role --build-arg AWS_ROLE_SESSION_NAME=AWSCodeBuild-54423a8e-3e3e-4b28-bcab-612f424867d5 .
        # - docker build -t test:latest .
